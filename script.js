@@ -3,9 +3,7 @@ import getComputerInput from "./getComputerInput.js";
 import printError from "./printError.js";
 import getResult from "./compare.js";
 
-const computerInput = getComputerInput().slice();
-
-console.log(computerInput);
+let computerInput = getComputerInput();
 
 //
 // const play = (computerInputNumbers, userInputNumbers) => {
@@ -40,8 +38,20 @@ const isAvailable = (userInputNumbers) => {
 	return printResult(getResult(computerInput, userInputNumbers));
 };
 
+const restartGame = () => {
+	$("#result").innerHTML = "";
+	resetOutput();
+	computerInput = getComputerInput();
+};
+
 $("#input-form").addEventListener("submit", (event) => {
 	event.preventDefault();
 	const userInputNumbers = getNumberArray($("#user-input").value);
 	isAvailable(userInputNumbers);
+});
+
+$("#result").addEventListener("click", (e) => {
+	if (e.target.id === `restart`) {
+		restartGame();
+	}
 });
